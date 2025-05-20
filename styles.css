@@ -1,0 +1,116 @@
+body {
+    display: grid;
+    background-color: whitesmoke;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav h1 {
+    margin: 0;
+    text-align: center;
+    padding: 0px 750px;
+}
+
+.nav nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.login {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.bgind {
+    padding: 200px;
+    background: url('/static/images/backgrounder.jpg') no-repeat center top;
+    background-size: cover;
+}
+
+.btn1 {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.btn2 {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 55px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+.stats {
+    margin-top: 30px;
+    background-color: #9946cd;
+    text-align: center;
+}
+
+.stats h2.roots {
+    position: relative;
+    top: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+
+.stats h2.foots{
+    position: relative;
+    top: 130px;
+}
+
+.stats div.option {
+    display: flex;
+    gap: 1000px;
+    padding-left: 70px;
+}
+
+.stats div.shop {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+     color: white;
+     text-shadow: 0px 0px 5px black;
+ }
+
+.stats div.worker{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+.stat-box {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #333333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+}
+
+.footer-section a{
+    color: rgb(226, 13, 13);
+}

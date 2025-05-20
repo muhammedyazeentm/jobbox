@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - JOBBOX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      padding: 40px;
+      background-color: #8e44ad;
+      color: white;
+      text-align: center;
+    }
+
+    .team-section {
+      background-color: white;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .team-section h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .member {
+      margin: 15px 0;
+      font-size: 18px;
+    }
+
+    .member span {
+      color: #27ae60;
+      font-weight: bold;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50; /* Matching green buttons */
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Feel free to reach out to any of our team members below.</p>
+  </div>
+
+  <div class="team-section">
+    <h2>Our Team</h2>
+
+    <div class="member">
+      <span>Joel Jimmy</span><br>
+      Email: joel28j04@gmail.com<br>
+      Phone: +91 9995714467
+    </div>
+
+    <div class="member">
+      <span>Kiran Abraham</span><br>
+      Email: kiranabraham04@gmail.com<br>
+      Phone: +91 9746693584
+    </div>
+
+    <div class="member">
+      <span>Muhammed Yazeem T.M</span><br>
+      Email: myazeen89@gmail.com<br>
+      Phone: +91 9567285178
+    </div>
+
+    <div class="member">
+      <span>Sidharth Gopakumar</span><br>
+      Email: sidharthpulinthanam@gmail.com<br>
+      Phone: +91 8848678020
+    </div>
+    <a class="button" href="{% url 'homepage' %}">Back to Home</a>
+  </div>
+
+</body>
+</html>
