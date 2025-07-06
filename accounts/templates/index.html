@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOBBOX</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <h1>JOBBOX</h1>
+            <nav>
+                <a href="{% url 'homepage' %}">Home</a>
+                <a href="{% url 'about' %}">About</a>
+                <a href="{% url 'contact' %}">Contact</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="btn logout">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn login">Log In</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <section class="bgind">
+    </section>
+
+    <section class="stats">
+        <h2 class="roots"><b>The Easiest Way To Hire Skilled Workers</b></h2>
+        <h2 class="foots">JOBBOX Site Stats</h2>
+        <div class="option">
+        <div class="shop">
+            <h3>For Shops/Individuals</h3>
+            <p> <b>You Need A Skilled Worker?<br>Sign Up And Look For Them.</br></b></p>
+            <a href="{% url 'shop_individual_signup' %}"><button class="btn1">Sign Up and Find Workers</button></a>
+        </div>
+        <div class="worker">
+            <h3>For Workers</h3>
+            <p><b>Are You A Skilled Worker?<br>Register With Us To Get Oppurtunities</br></b></p>
+            <a href="{% url 'worker_signup' %}"><button class="btn2">Register with us</button></a>
+       </div> 
+        </div>
+        <div class="stat-box">
+            <div>{{ worker_count }} <p>Workers</p></div>
+            <div>{{ individual_count }} <p>Individuals</p></div>
+            <div>{{ shop_count }} <p>Shops</p></div>
+            <div>{{ jobs_filled }} <p>Jobs Filled</p></div>
+        </div>        
+    </section>
+    
+    <footer>
+        <div class="footer-section">
+            <h4>Developer</h4>
+            <a href="{% url 'about' %}">About Us</a>
+        </div>
+        <div class="footer-section">
+            <h4>Support</h4>
+            <a href="{% url 'spt' %}">Support,Privacy,Terms of Service</a>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <a href="{% url 'contact' %}">Send Feedback</a>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

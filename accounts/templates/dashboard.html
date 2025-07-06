@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: none;
+        }
+        .data-section {
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        .card {
+            margin-bottom: 15px;
+        }
+        .profile-pic {
+            width: 100%;
+            max-width: 300px;  /* adjust as needed */
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+        .logout-btn {
+            margin-top: 20px;
+        }
+        .navbar .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            margin-right: 10px;
+        }
+        .welcome-message {
+            flex-grow: 1;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            transform: translateX(-6%);
+        }
+        .menu-dropdown {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 150px;
+        }
+        .menu-dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-dropdown a:last-child {
+            border-bottom: none;
+        }
+        .menu-dropdown a:hover {
+            background: #f0f0f0;
+        }
+        .hidden {
+             display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark px-3 d-flex align-items-center">
+    <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+    <a class="navbar-brand" href="#">JobBox Dashboard</a>
+    <div id="welcomeMessage" class="welcome-message">Welcome, <b>{{ user.username }}</b>!</div>
+    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+</nav>
+
+<!-- Menu Dropdown -->
+<div id="menuDropdown" class="menu-dropdown">
+    <a href="#" id="homeLink">Home</a>
+    <a href="#" id="profileLink">Profile</a>
+    <a href="#" id="notificationsLink">Notifications</a>
+    <a href="#" id="requestLink">Requests</a>
+</div>
+
+<!-- Profile Container -->
+<div id="dashboardContainer" class="dashboard-container">
+    {% if user.workerprofile.profile_picture %}
+  <img src="{{ user.workerprofile.profile_picture.url }}" alt="Profile Picture" class="profile-pic" ...>
+    {% elif user.shoporindividualprofile.profile_picture %}
+  <img src="{{ user.shoporindividualprofile.profile_picture.url }}" alt="Profile Picture" class="profile-pic"...>
+    {% elif user.profile_picture %}
+  <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-pic"...>
+    {% else %}
+  <img src="{% static 'images/avatar.jpeg' %}" alt="Default Avatar" class="profile-pic">
+    {% endif %}
+    
+
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Contact Number:</strong> {{ user.contact_number }}</p>
+    <p><strong>Location:</strong> {{ user.location }}</p>
+
+    {% if user.user_type == "shop" %}
+        <p><strong>Customer Type:</strong> {{ user.user_type }}</p>
+        <p><strong>Shop Name:</strong> {{ user.shop_name }}</p>
+        <p><strong> Owner:</strong> {{ user.owner_name }}</p>
+        <p><strong>Category:</strong> {{ user.category }}</p>
+        <p><strong>Description:</strong> {{ user.description }}</p>
+    {% elif user.user_type == "individual" %}
+        <p><strong>Customer Type:</strong> {{ user.user_type }}</p>
+        <p><strong>Name:</strong> {{ user.shoporindividualprofile.Name }}</p>
+    {% else %}
+        <p><strong>Name:</strong>{{ user.Wname }}</p>
+        <p><strong>Customer Type:</strong> Worker</p>
+        <p><strong>Skilled_as:</strong> {{ user.I_am_a }}</p>
+        <p><strong>Experience:</strong> {{ user.experience_in_years }} years</p>
+    {% endif %}
+    {% if request.user.is_authenticated and request.user.shoporindividualprofile.user_type == "shop" %}
+    <a href="{% url 'edit_shop_profile' %}" class="btn btn-warning">Edit Profile</a>
+    {% elif request.user.is_authenticated and request.user.shoporindividualprofile.user_type == "individual" %}
+    <a href="{% url 'edit_individual_profile' %}" class="btn btn-warning">Edit Profile</a>
+    {% else %}
+    <a href="{% url 'edit_worker_profile' %}" class="btn btn-warning">Edit Profile</a>
+    {% endif %}
+</div>
+
+<!-- Dynamic Data Section for Shops/Workers -->
+<div id="dataSection" class="data-section container">
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" id="liveSearchInput" class="form-control" placeholder="Search by name, category/profession, or location" value="{{ request.GET.q }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    
+    {% if shops %}
+    <h4 class="mb-3">Available Shops</h4>
+    {% for shop in shops %}
+        <div class="card p-3 d-flex flex-row justify-content-between align-items-center">
+            <div>
+                <h5>{{ shop.shop_name }}</h5>
+                <p><strong>Category:</strong> {{ shop.category }}</p>
+                <p><strong>Location:</strong> {{ shop.location }}</p>
+                <p><strong>Description:</strong> {{ shop.description }}</p>
+                <p><strong>Owner:</strong> {{ shop.owner_name }}</p>
+                <p><strong>Contact:</strong> {{ shop.contact_number }}</p>
+                <p><strong>Email:</strong> {{ shop.email }}</p>
+            </div>
+            <div>
+                <img src="{% if shop.profile_picture %}{{ shop.profile_picture.url }}{% else %}{% static 'images/avatar.jpeg' %}{% endif %}"
+                     alt="Shop Picture"
+                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+            </div>
+        </div>
+    {% empty %}
+        <p>No shops available.</p>
+    {% endfor %}
+    {% elif workers %}
+    <h4 class="mb-3">Available Workers</h4>
+        {% for worker in workers %}
+            <div class="card p-3 d-flex flex-row justify-content-between align-items-center">
+                <div>
+                    <h5>{{ worker.Name }}</h5>
+                    <p><strong>Profession:</strong> {{ worker.I_am_a }}</p>
+                    <p><strong>Experience:</strong> {{ worker.experience_in_years }} years</p>
+                    <p><strong>Location:</strong> {{ worker.location }}</p>
+                    <p><strong>Contact:</strong> {{ worker.contact_number }}</p>
+                </div>
+                <div>
+                    <img src="{% if worker.profile_picture %}{{ worker.profile_picture.url }}{% else %}{% static 'images/avatar.jpeg' %}{% endif %}"
+                         alt="Profile Picture"
+                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                </div>
+            </div>
+        {% empty %}
+            <p>No workers available.</p>
+        {% endfor %}
+    {% endif %}    
+</div>
+
+<script>
+    function toggleMenu() {
+        var menu = document.getElementById("menuDropdown");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    document.addEventListener("click", function (event) {
+        var menu = document.getElementById("menuDropdown");
+        var menuIcon = document.querySelector(".menu-icon");
+        if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+
+    function updateTitle(title) {
+        document.getElementById("welcomeMessage").innerHTML = title;
+    }
+
+    function showProfile() {
+        document.getElementById("dashboardContainer").style.display = "block";
+        document.getElementById("dataSection").style.display = "none";
+        updateTitle("Your Profile");
+    }
+
+    function showNotifications() {
+        document.getElementById("dashboardContainer").style.display = "none";
+        document.getElementById("dataSection").style.display = "none";
+        updateTitle("Notifications");
+    }
+
+    function showRequests() {
+        document.getElementById("dashboardContainer").style.display = "none";
+        document.getElementById("dataSection").style.display = "none";
+        updateTitle("Requests");
+    }
+
+    function showHome() {
+        document.getElementById("dashboardContainer").style.display = "none";
+        document.getElementById("dataSection").style.display = "block";
+        updateTitle("Welcome, <b>{{ user.username }}</b>!");
+    }
+
+    window.onload = function () {
+        showHome();
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("profileLink").addEventListener("click", showProfile);
+        document.getElementById("homeLink").addEventListener("click", showHome);
+        document.getElementById("notificationsLink").addEventListener("click", showNotifications);
+        document.getElementById("requestLink").addEventListener("click", showRequests);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const liveSearchInput = document.getElementById("liveSearchInput");
+        const cards = document.querySelectorAll("#dataSection .card");
+
+        liveSearchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+
+            cards.forEach(card => {
+                const cardText = card.innerText.toLowerCase();
+                if (cardText.includes(query)) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

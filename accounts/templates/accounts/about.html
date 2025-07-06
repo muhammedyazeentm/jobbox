@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - JOBBOX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f8fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e7d32; /* Matching green navbar */
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .main-section {
+      background-color: #7e57c2; /* Purple section background */
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .main-section h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+    }
+
+    h2 {
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    p, li {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50; /* Matching green buttons */
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2e7d32;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    JOBBOX - About Us
+  </header>
+
+  <div class="main-section">
+    <div class="section">
+      <h1>Connecting Local Talent with Local Opportunities</h1>
+      <p>
+        Welcome to <strong>JOBBOX</strong>, a platform built to simplify and strengthen local hiring. Our mission is to connect <strong>shops, businesses, and individuals</strong> with the right talent in their neighborhoods—<em>no resumes, no complicated processes</em>, just real people and real jobs.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>What We Do</h2>
+      <p>
+        We help <strong>local shop owners, small businesses, and individuals</strong> find reliable workers for roles like sales assistants, chefs, delivery helpers, housekeepers, and more. Whether it’s a <strong>permanent, temporary, or part-time job</strong>, our platform allows employers to post vacancies, and job seekers to apply quickly with a skill-based profile.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li><strong>No Resume Required</strong> – We focus on <em>skills and experience</em>, not paperwork.</li>
+        <li><strong>Quick Hiring</strong> – Post a job and start receiving applications within minutes.</li>
+        <li><strong>Easy Communication</strong> – Directly message applicants and schedule interviews or trials.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Our Vision</h2>
+      <p>
+        To become the most trusted job platform for <strong>local employment</strong>, empowering small businesses and skilled workers by <em>breaking down barriers to opportunity</em>.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Who We Serve</h2>
+      <ul>
+        <li>Local shop owners</li>
+        <li>Home-based entrepreneurs</li>
+        <li>Small and medium-sized businesses</li>
+        <li>Individuals seeking quick or part-time jobs</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Join Us</h2>
+      <p>
+        Whether you're <strong>looking to hire</strong> or <strong>looking for work</strong>, we're here to help. <br />
+        Let’s build strong, local connections—<em>one job at a time.</em>
+      </p>
+      <a class="button" href="{% url 'homepage' %}">Back to Home</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 JOBBOX. All rights reserved.
+  </footer>
+
+</body>
+</html>
+
